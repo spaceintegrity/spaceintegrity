@@ -1274,6 +1274,27 @@ section,
   background-color: var(--accent-color);
 }
 
+/* Client logos */
+.client-logo {
+  max-width: 160px;   /* Increase max width */
+  height: auto;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hover effect */
+.swiper-slide:hover .client-logo {
+  transform: scale(1.15);  /* Slightly enlarge on hover */
+  opacity: 1;
+}
+
+/* Center slides */
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
 /*--------------------------------------------------------------
 # Contact Section
 --------------------------------------------------------------*/
