@@ -1,40 +1,313 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import pledgeData from '../data/pledge.json';
+
+const { goal, signatureCount, lastUpdated, signatories } = pledgeData;
+const progressPct = Math.min(100, Math.round((signatureCount / goal) * 100));
+
+const shareUrl = 'https://spaceintegrity.org/pledge';
+const shareText = 'I just signed the Space Integrity Pledge — join me in championing ethical, transparent space communication:';
+
+const commitments = [
+  {
+    title: 'Accuracy',
+    body: 'I will not misrepresent mission outcomes, technical capability, or scientific results in the communications I create or approve.',
+  },
+  {
+    title: 'Transparency',
+    body: 'I will disclose material risks, limitations, and conflicts of interest rather than let a story imply more certainty than the facts support.',
+  },
+  {
+    title: 'Lifecycle awareness',
+    body: 'I will consider the full lifecycle impact of a mission or product in how it is framed — not just the moment of launch.',
+  },
+  {
+    title: 'Evidence-based messaging',
+    body: 'I will back sustainability, safety, and impact claims with evidence I would be comfortable sharing on request.',
+  },
+];
+
+const whyItMatters = [
+  {
+    title: 'A crowded, noisy sector',
+    body: 'As commercial space activity accelerates, so does the temptation to oversell. A shared, visible standard makes it easier to hold the line.',
+  },
+  {
+    title: 'Peaceful, responsible use',
+    body: 'Guided by UN COPUOS principles, signatories support communication that favours the peaceful use of outer space over militarisation.',
+  },
+  {
+    title: 'Public trust is fragile',
+    body: 'Every exaggerated claim that gets caught out makes the next honest story harder to believe. Trust compounds — in both directions.',
+  },
+];
 ---
+
 <Layout
-  title="Space Integrity Initative"
-  description="Strategic communications, PR, and storytelling for space missions and sustainability initiatives."
+  title="Sign the Pledge | Space Integrity Initiative"
+  description="Join communicators, marketers, and industry leaders across the space sector pledging accuracy, transparency, and evidence-based communication."
 >
-  <main class="main index-page">
+  <main class="main pledge-page">
 
-    <!-- Page Title -->
-    <div class="page-title" data-aos="fade">
-      <div class="container d-lg-flex justify-content-between align-items-center">
-        <h1 class="mb-2 mb-lg-0">Starter Page</h1>
-        <nav class="breadcrumbs">
-          <ol>
-            <li><a href="index.html">Home</a></li>
-            <li class="current">Starter Page</li>
-          </ol>
-        </nav>
+    <!-- Campaign Hero -->
+    <section id="pledge-hero" class="pledge-hero section" data-aos="fade">
+      <div class="container">
+        <div class="row align-items-center gy-4">
+          <div class="col-lg-7">
+            <span class="pledge-eyebrow">GLOBAL ADVOCACY CAMPAIGN</span>
+            <h1>Stand Up for Ethical Space Communication</h1>
+            <p class="lead">
+              Commercial space is moving fast. Sign the Space Integrity Pledge to commit —
+              publicly — to accuracy, transparency, and evidence-based communication, and
+              add your name to a growing global network of communicators and organisations
+              holding the sector to a higher standard.
+            </p>
+            <div class="pledge-hero-actions">
+              <a href="#sign" class="btn-pledge-primary">Sign the Pledge</a>
+              <a href="#commitments" class="btn-pledge-secondary">See what you're signing</a>
+            </div>
+
+            <div class="pledge-share">
+              <span>Spread the word:</span>
+              <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener" aria-label="Share on LinkedIn"><i class="bi bi-linkedin"></i></a>
+              <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}&hashtags=SpaceIntegrity,Space`} target="_blank" rel="noopener" aria-label="Share on X"><i class="bi bi-twitter-x"></i></a>
+              <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`} target="_blank" rel="noopener" aria-label="Share on WhatsApp"><i class="bi bi-whatsapp"></i></a>
+              <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener" aria-label="Share on Facebook"><i class="bi bi-facebook"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="pledge-stats-card">
+              <div class="pledge-stats-count">{signatureCount.toLocaleString()}</div>
+              <div class="pledge-stats-label">signatures &middot; goal {goal.toLocaleString()}</div>
+              <div class="progress" role="progressbar" aria-valuenow={progressPct} aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" style={`width: ${progressPct}%`}></div>
+              </div>
+              <p class="pledge-stats-updated">Updated {lastUpdated}</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div><!-- End Page Title -->
+    </section>
 
-    <!-- Starter Section Section -->
-    <section id="starter-section" class="starter-section section">
-
-      <!-- Section Title -->
+    <!-- What You're Signing -->
+    <section id="commitments" class="pledge-commitments section">
       <div class="container section-title" data-aos="fade-up">
-        <h2>Starter Section</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up">
-        <p>Use this page as a starter for your own custom pages.</p>
+        <h2>The Ethical Communication Pledge</h2>
+        <p>Four commitments. No fine print. This is what signing actually means.</p>
       </div>
 
-    </section><!-- /Starter Section Section -->
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4">
+          {commitments.map((c, i) => (
+            <div class="col-lg-6">
+              <div class="pledge-commitment-card">
+                <span class="pledge-commitment-number">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{c.title}</h3>
+                <p>{c.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Why It Matters -->
+    <section id="why-it-matters" class="pledge-why section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Why It Matters</h2>
+        <p>A shared standard is only as strong as the number of people visibly holding it.</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4">
+          {whyItMatters.map((w) => (
+            <div class="col-lg-4">
+              <div class="pledge-why-card">
+                <h3>{w.title}</h3>
+                <p>{w.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Sign Form -->
+    <section id="sign" class="pledge-sign section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Add Your Signature</h2>
+        <p>Takes under a minute. Your name strengthens the standard for everyone who follows.</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center">
+          <div class="col-lg-9">
+
+            <!--
+              FORM BACKEND: this posts to Formspree (https://formspree.io), a static-site-friendly
+              form backend with no server required — a fit for the current GitHub Pages deployment.
+              To go live: create a free form at formspree.io, then replace YOUR_FORM_ID below.
+              Submissions land in your Formspree inbox/CSV export; review them and add anyone who
+              opted in to public display into src/data/pledge.json to update the count and wall.
+            -->
+            <form
+              id="pledge-form"
+              class="php-email-form pledge-form"
+              action="https://formspree.io/f/YOUR_FORM_ID"
+              method="POST"
+            >
+              <div class="row gy-4">
+
+                <div class="col-md-6">
+                  <label for="pledge-name" class="pb-2">Full Name *</label>
+                  <input type="text" name="name" id="pledge-name" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="pledge-email" class="pb-2">Email Address *</label>
+                  <input type="email" name="email" id="pledge-email" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="pledge-role" class="pb-2">Organisation / Role *</label>
+                  <input type="text" name="organisation" id="pledge-role" class="form-control" placeholder="e.g. Comms Lead, Orbit Dynamics" required>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="pledge-location" class="pb-2">City &amp; Country (Optional)</label>
+                  <input type="text" name="location" id="pledge-location" class="form-control" placeholder="e.g. Leicester, UK">
+                </div>
+
+                <div class="col-md-12">
+                  <label for="pledge-testimonial" class="pb-2">Why does this matter to you? (Optional)</label>
+                  <textarea name="testimonial" id="pledge-testimonial" class="form-control" rows="4" maxlength="500"></textarea>
+                </div>
+
+                <div class="col-md-12">
+                  <label for="pledge-display" class="pb-2">How should we display your signature publicly?</label>
+                  <select name="display_preference" id="pledge-display" class="form-select">
+                    <option value="full">Full name &amp; organisation</option>
+                    <option value="partial">Role &amp; location only (e.g. "Comms Lead, UK")</option>
+                    <option value="anonymous">Anonymous — count me, don't name me</option>
+                  </select>
+                </div>
+
+                <div class="col-md-12 pledge-consent">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="consent_processing" id="consent-processing" required>
+                    <label class="form-check-label" for="consent-processing">
+                      I consent to my data (name, email, organisation, message) being processed for the
+                      purpose of this Pledge, in line with the
+                      <a href="/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>. *
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="consent_testimonial" id="consent-testimonial">
+                    <label class="form-check-label" for="consent-testimonial">
+                      I agree my testimonial (if provided) may be shared publicly on this page.
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="consent_updates" id="consent-updates">
+                    <label class="form-check-label" for="consent-updates">
+                      Email me occasional updates about the Initiative and this campaign.
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-md-12 text-center">
+                  <div class="loading">Loading</div>
+                  <div class="error-message"></div>
+                  <div class="sent-message">
+                    Thank you for signing. Your commitment has been recorded — check your inbox for confirmation.
+                  </div>
+                  <button type="submit">Sign the Pledge</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Signature Wall -->
+    <section id="signatories" class="pledge-wall section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Signatories</h2>
+        <p>A curated selection of the communicators and organisations standing behind the Pledge.</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4">
+          {signatories.map((s) => (
+            <div class="col-lg-4 col-md-6">
+              <div class="pledge-signatory-card">
+                {s.quote && <p class="pledge-signatory-quote">&ldquo;{s.quote}&rdquo;</p>}
+                <p class="pledge-signatory-name">{s.name}</p>
+                <p class="pledge-signatory-meta">{s.role}{s.location ? ` — ${s.location}` : ''}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <p class="pledge-wall-note">
+          Signed and want your name added here, or need to update or remove your listing?
+          Email <a href="mailto:hello@spaceintegrity.org">hello@spaceintegrity.org</a>.
+        </p>
+      </div>
+    </section>
 
   </main>
-
 </Layout>
+
+
+<script>
+  // Progressive-enhancement AJAX submit for the pledge form, following the same
+  // loading / error / success state pattern already used by the site's
+  // .php-email-form class elsewhere (see Contact.astro).
+  const form = document.getElementById('pledge-form');
+
+  if (form) {
+    const loadingEl = form.querySelector('.loading');
+    const errorEl = form.querySelector('.error-message');
+    const sentEl = form.querySelector('.sent-message');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (loadingEl) loadingEl.style.display = 'block';
+      if (errorEl) { errorEl.style.display = 'none'; errorEl.textContent = ''; }
+      if (sentEl) sentEl.style.display = 'none';
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+
+        if (response.ok) {
+          form.reset();
+          if (sentEl) sentEl.style.display = 'block';
+        } else {
+          const data = await response.json().catch(() => null);
+          const message = (data && data.errors && data.errors.map((err) => err.message).join(', '))
+            || 'Something went wrong sending your signature. Please try again or email hello@spaceintegrity.org.';
+          if (errorEl) { errorEl.textContent = message; errorEl.style.display = 'block'; }
+        }
+      } catch {
+        if (errorEl) {
+          errorEl.textContent = 'Network error — please check your connection and try again.';
+          errorEl.style.display = 'block';
+        }
+      } finally {
+        if (loadingEl) loadingEl.style.display = 'none';
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+  }
+</script>

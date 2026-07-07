@@ -82,5 +82,11 @@
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3",
     "vite": "^7.1.5"
+  },
+  "allowScripts": {
+    "esbuild@0.25.9": true,
+    "fsevents@2.3.3": true,
+    "puppeteer@24.17.0": true,
+    "sharp@0.34.3": true
   }
 }

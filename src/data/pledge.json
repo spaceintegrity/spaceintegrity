@@ -1,0 +1,14 @@
+{
+  "goal": 500,
+  "signatureCount": 0,
+  "lastUpdated": "2026-07-07",
+  "note": "signatureCount and signatories are curated manually from Formspree submissions. Update this file after each review to keep the public count and wall honest and current.",
+  "signatories": [
+    {
+      "name": "Ryan Laird",
+      "role": "Founder, Space Integrity Initiative",
+      "location": "Leicester, UK",
+      "quote": "Signing the Pledge is the first, smallest step. The habits it asks for — accuracy, transparency, evidence — are the ones our sector needs most as commercial activity accelerates."
+    }
+  ]
+}
